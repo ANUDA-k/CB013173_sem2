@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "topic": "Fallback Property",
+    "rooms": "2",
+    "bathrooms": "1",
+    "price": "100000",
+    "description": "Sample fallback property data",
+    "contact": "0000000000",
+    "email": "demo@example.com",
+    "property_type": "House",
+    "images": "assets/home1.jpg,assets/home2.jpg"
+  }
+]
