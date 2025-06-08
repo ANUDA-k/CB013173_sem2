@@ -495,6 +495,7 @@
 import 'package:flutter/material.dart';
 import '../models/property.dart';
 import '../services/api_service.dart';
+import '../local_ads.dart'; // ✅ Import LocalAds
 import 'exprofile.dart';
 
 class ExplorePage extends StatelessWidget {
@@ -518,12 +519,18 @@ class ExplorePage extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return const Center(child: Text('Error loading properties'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No properties available'));
           }
 
-          final properties = snapshot.data!;
-          properties.sort((a, b) => b.id.compareTo(a.id)); // Newest first
+          final apiProperties = snapshot.data ?? [];
+          final localAds = LocalAds().ads;
+
+          // ✅ Combine local and API ads
+          final combinedProperties = [...localAds, ...apiProperties];
+          combinedProperties.sort((a, b) => b.id.compareTo(a.id)); // Newest first
+
+          if (combinedProperties.isEmpty) {
+            return const Center(child: Text('No properties available'));
+          }
 
           return SingleChildScrollView(
             child: Column(
@@ -565,9 +572,9 @@ class ExplorePage extends StatelessWidget {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: properties.length,
+                  itemCount: combinedProperties.length,
                   itemBuilder: (context, index) {
-                    final property = properties[index];
+                    final property = combinedProperties[index];
                     final imageUrl = property.images.isNotEmpty
                         ? property.images[0].startsWith('http')
                             ? property.images[0]

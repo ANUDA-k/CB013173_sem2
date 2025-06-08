@@ -1,23 +1,39 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:battery_plus/battery_plus.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import '../screens/postad.dart';
 import '../screens/explore.dart';
 import '../screens/login.dart';
 
-class ProfilePage extends StatelessWidget {
-  final List<String> randomImages = [
-    'https://randomuser.me/api/portraits/men/1.jpg',
-    'https://randomuser.me/api/portraits/women/2.jpg',
-    'https://randomuser.me/api/portraits/men/3.jpg',
-    'https://randomuser.me/api/portraits/women/4.jpg',
-  ];
+class ProfilePage extends StatefulWidget {
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  final Battery _battery = Battery();
+  String _batteryStatus = '';
+
+  Future<void> _getBatteryStatus() async {
+    final level = await _battery.batteryLevel;
+    final state = await _battery.batteryState;
+    setState(() {
+      _batteryStatus = 'Battery: $level%, State: ${state.name}';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<AuthProvider>(context).user;
     final name = user?.name ?? 'User';
+    final randomImages = [
+      'https://randomuser.me/api/portraits/men/1.jpg',
+      'https://randomuser.me/api/portraits/women/2.jpg',
+      'https://randomuser.me/api/portraits/men/3.jpg',
+      'https://randomuser.me/api/portraits/women/4.jpg',
+    ];
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -28,12 +44,30 @@ class ProfilePage extends StatelessWidget {
               imageUrl: randomImages[Random().nextInt(randomImages.length)],
             ),
             SizedBox(height: 20),
-            CustomButton(text: 'Post Ad', onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => PostAdScreen()));
-            }),
-            CustomButton(text: 'View Properties', onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => ExplorePage()));
-            }),
+            CustomButton(
+              text: 'Post Ad',
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => PostAdScreen()));
+              },
+            ),
+            CustomButton(
+              text: 'View Properties',
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => ExplorePage()));
+              },
+            ),
+            CustomButton(
+              text: 'Show Battery Status',
+              onPressed: _getBatteryStatus,
+            ),
+            if (_batteryStatus.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  _batteryStatus,
+                  style: TextStyle(fontSize: 16, color: Colors.green),
+                ),
+              ),
             ExpansionTile(
               title: Text('My Details'),
               children: [
@@ -120,3 +154,4 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
+
