@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _screens = [
     HomeContent(),
     ExplorePage(),
-    PostAdPage(),
+    PostAdScreen(),
     ProfilePage(),
   ];
 

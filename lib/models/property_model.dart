@@ -1,18 +1,17 @@
 //this is new
-class PropertyModel {
+class Property {
   final String title;
   final String description;
   final String price;
   final String location;
   final String category;
-  final List<String> imagePaths;
+  // Add image URLs or paths here if you want
 
-  PropertyModel({
+  Property({
     required this.title,
     required this.description,
     required this.price,
     required this.location,
     required this.category,
-    required this.imagePaths,
   });
 }

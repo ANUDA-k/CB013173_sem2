@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../models/property_model.dart';
 
 class PropertyProvider with ChangeNotifier {
-  final List<PropertyModel> _localProperties = [];
+  final List<Property> _properties = [];
 
-  List<PropertyModel> get localProperties => _localProperties;
+  List<Property> get properties => _properties;
 
-  void addLocalProperty(PropertyModel property) {
-    _localProperties.insert(0, property);
+  void addProperty(Property property) {
+    _properties.add(property);
     notifyListeners();
   }
 }

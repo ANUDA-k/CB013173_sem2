@@ -1,187 +1,323 @@
+// import 'package:flutter/material.dart';
+
+// class PostAdPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     double screenWidth = MediaQuery.of(context).size.width;
+//     double screenHeight = MediaQuery.of(context).size.height;
+
+//     return SafeArea(
+//       child: SingleChildScrollView(
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             // Yellow Label - Full width
+//             Container(
+//               width: double.infinity,
+//               color: const Color.fromARGB(255, 143, 96, 16),
+//               padding: EdgeInsets.all(8.0),
+//               child: Text(
+//                 "Please fill in all the details carefully before submitting your ad.",
+//                 style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
+//                 textAlign: TextAlign.center,
+//               ),
+//             ),
+//             SizedBox(height: 16.0),
+
+//             // FORM INSIDE A CARD WITH PADDING
+//             Padding(
+//               padding: EdgeInsets.symmetric(horizontal: 16.0),
+//               child: Card(
+//                 elevation: 5,
+//                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+//                 child: Padding(
+//                   padding: EdgeInsets.all(16.0),
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       // Form Title
+//                       Text("Create a New Ad", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+//                       SizedBox(height: 16.0),
+
+//                       // Title Field
+//                       TextField(
+//                         decoration: InputDecoration(
+//                           labelText: "Ad Title",
+//                           hintText: "Enter the title of your property ad",
+//                           border: OutlineInputBorder(),
+//                           prefixIcon: Icon(Icons.title),
+//                         ),
+//                       ),
+//                       SizedBox(height: 12.0),
+
+//                       // Description Field
+//                       TextField(
+//                         maxLines: 4,
+//                         decoration: InputDecoration(
+//                           labelText: "Description",
+//                           hintText: "Provide details about your property",
+//                           border: OutlineInputBorder(),
+//                           prefixIcon: Icon(Icons.description),
+//                         ),
+//                       ),
+//                       SizedBox(height: 12.0),
+
+//                       // Price Field
+//                       TextField(
+//                         keyboardType: TextInputType.number,
+//                         decoration: InputDecoration(
+//                           labelText: "Price (LKR)",
+//                           hintText: "Enter the price of the property",
+//                           border: OutlineInputBorder(),
+//                           prefixIcon: Icon(Icons.money),
+//                         ),
+//                       ),
+//                       SizedBox(height: 12.0),
+
+//                       // Location Field
+//                       TextField(
+//                         decoration: InputDecoration(
+//                           labelText: "Location",
+//                           hintText: "Enter the property location",
+//                           border: OutlineInputBorder(),
+//                           prefixIcon: Icon(Icons.location_on),
+//                         ),
+//                       ),
+//                       SizedBox(height: 12.0),
+
+//                       // Category Dropdown
+//                       DropdownButtonFormField<String>(
+//                         decoration: InputDecoration(
+//                           labelText: "Category",
+//                           border: OutlineInputBorder(),
+//                           prefixIcon: Icon(Icons.category),
+//                         ),
+//                         items: [
+//                           DropdownMenuItem(value: "House", child: Text("House")),
+//                           DropdownMenuItem(value: "Apartment", child: Text("Apartment")),
+//                           DropdownMenuItem(value: "Villa", child: Text("Villa")),
+//                           DropdownMenuItem(value: "Land", child: Text("Land")),
+//                         ],
+//                         onChanged: (value) {},
+//                       ),
+//                       SizedBox(height: 12.0),
+
+//                       // Image Upload Placeholder
+//                       GestureDetector(
+//                         onTap: () {
+//                           print("Upload Image");
+//                         },
+//                         child: Container(
+//                           height: screenHeight * 0.3,
+//                           width: screenWidth * 0.9,
+//                           decoration: BoxDecoration(
+//                             border: Border.all(color: Colors.grey),
+//                             borderRadius: BorderRadius.circular(8.0),
+//                           ),
+//                           child: Center(
+//                             child: Column(
+//                               mainAxisAlignment: MainAxisAlignment.center,
+//                               children: [
+//                                 Icon(Icons.add_a_photo, size: 50, color: Colors.grey),
+//                                 SizedBox(height: 8.0),
+//                                 Text("Upload Property Images", style: TextStyle(color: Colors.grey)),
+//                               ],
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                       SizedBox(height: 16.0),
+
+//                       // Submit Button
+//                       Center(
+//                         child: ElevatedButton(
+//                           onPressed: () {
+//                             Navigator.push(
+//                               context,
+//                               PageRouteBuilder(
+//                                 pageBuilder: (context, animation, secondaryAnimation) => NextPage(),
+//                                 transitionsBuilder: (context, animation, secondaryAnimation, child) {
+//                                   var begin = Offset(1.0, 0.0);
+//                                   var end = Offset.zero;
+//                                   var curve = Curves.easeInOut;
+//                                   var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+//                                   var offsetAnimation = animation.drive(tween);
+//                                   return SlideTransition(position: offsetAnimation, child: child);
+//                                 },
+//                               ),
+//                             );
+//                           },
+//                           style: ElevatedButton.styleFrom(
+//                             backgroundColor: Colors.green,
+//                             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+//                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+//                           ),
+//                           child: Row(
+//                             mainAxisSize: MainAxisSize.min,
+//                             children: [
+//                               Text("Submit Ad", style: TextStyle(fontSize: 18)),
+//                               SizedBox(width: 10),
+//                               Icon(Icons.send),
+//                             ],
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// // Dummy Next Page
+// class NextPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text("Next Page"), backgroundColor: Colors.green),
+//       body: Center(
+//         child: Text("Ad Submitted Successfully!", style: TextStyle(fontSize: 24)),
+//       ),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
+import 'package:mad_assignment/models/property.dart';
+import 'package:mad_assignment/local_ads.dart'; // Singleton for local ads
+import 'package:mad_assignment/screens/explore.dart';
 
-class PostAdPage extends StatelessWidget {
+class PostAdScreen extends StatefulWidget {
+  const PostAdScreen({super.key});
+
   @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Yellow Label - Full width
-            Container(
-              width: double.infinity,
-              color: const Color.fromARGB(255, 143, 96, 16),
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "Please fill in all the details carefully before submitting your ad.",
-                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(height: 16.0),
-
-            // FORM INSIDE A CARD WITH PADDING
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Card(
-                elevation: 5,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Form Title
-                      Text("Create a New Ad", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                      SizedBox(height: 16.0),
-
-                      // Title Field
-                      TextField(
-                        decoration: InputDecoration(
-                          labelText: "Ad Title",
-                          hintText: "Enter the title of your property ad",
-                          border: OutlineInputBorder(),
-                          prefixIcon: Icon(Icons.title),
-                        ),
-                      ),
-                      SizedBox(height: 12.0),
-
-                      // Description Field
-                      TextField(
-                        maxLines: 4,
-                        decoration: InputDecoration(
-                          labelText: "Description",
-                          hintText: "Provide details about your property",
-                          border: OutlineInputBorder(),
-                          prefixIcon: Icon(Icons.description),
-                        ),
-                      ),
-                      SizedBox(height: 12.0),
-
-                      // Price Field
-                      TextField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "Price (LKR)",
-                          hintText: "Enter the price of the property",
-                          border: OutlineInputBorder(),
-                          prefixIcon: Icon(Icons.money),
-                        ),
-                      ),
-                      SizedBox(height: 12.0),
-
-                      // Location Field
-                      TextField(
-                        decoration: InputDecoration(
-                          labelText: "Location",
-                          hintText: "Enter the property location",
-                          border: OutlineInputBorder(),
-                          prefixIcon: Icon(Icons.location_on),
-                        ),
-                      ),
-                      SizedBox(height: 12.0),
-
-                      // Category Dropdown
-                      DropdownButtonFormField<String>(
-                        decoration: InputDecoration(
-                          labelText: "Category",
-                          border: OutlineInputBorder(),
-                          prefixIcon: Icon(Icons.category),
-                        ),
-                        items: [
-                          DropdownMenuItem(value: "House", child: Text("House")),
-                          DropdownMenuItem(value: "Apartment", child: Text("Apartment")),
-                          DropdownMenuItem(value: "Villa", child: Text("Villa")),
-                          DropdownMenuItem(value: "Land", child: Text("Land")),
-                        ],
-                        onChanged: (value) {},
-                      ),
-                      SizedBox(height: 12.0),
-
-                      // Image Upload Placeholder
-                      GestureDetector(
-                        onTap: () {
-                          print("Upload Image");
-                        },
-                        child: Container(
-                          height: screenHeight * 0.3,
-                          width: screenWidth * 0.9,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.add_a_photo, size: 50, color: Colors.grey),
-                                SizedBox(height: 8.0),
-                                Text("Upload Property Images", style: TextStyle(color: Colors.grey)),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 16.0),
-
-                      // Submit Button
-                      Center(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                pageBuilder: (context, animation, secondaryAnimation) => NextPage(),
-                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                  var begin = Offset(1.0, 0.0);
-                                  var end = Offset.zero;
-                                  var curve = Curves.easeInOut;
-                                  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-                                  var offsetAnimation = animation.drive(tween);
-                                  return SlideTransition(position: offsetAnimation, child: child);
-                                },
-                              ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
-                            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text("Submit Ad", style: TextStyle(fontSize: 18)),
-                              SizedBox(width: 10),
-                              Icon(Icons.send),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  State<PostAdScreen> createState() => _PostAdScreenState();
 }
 
-// Dummy Next Page
-class NextPage extends StatelessWidget {
+class _PostAdScreenState extends State<PostAdScreen> {
+  final _titleController = TextEditingController();
+  final _roomsController = TextEditingController();
+  final _bathroomsController = TextEditingController();
+  final _priceController = TextEditingController();
+  final _descController = TextEditingController();
+  final _contactController = TextEditingController();
+  final _emailController = TextEditingController();
+
+  String? _selectedType;
+  final List<String> _types = ['House', 'Apartment', 'Villa', 'Land'];
+
+  void _submitAd() {
+    if (_titleController.text.isEmpty ||
+        _roomsController.text.isEmpty ||
+        _bathroomsController.text.isEmpty ||
+        _priceController.text.isEmpty ||
+        _descController.text.isEmpty ||
+        _contactController.text.isEmpty ||
+        _emailController.text.isEmpty ||
+        _selectedType == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill all fields')),
+      );
+      return;
+    }
+
+    final newAd = Property(
+      id: DateTime.now().millisecondsSinceEpoch, // simple local ID
+      topic: _titleController.text,
+      rooms: _roomsController.text,
+      bathrooms: _bathroomsController.text,
+      price: _priceController.text,
+      description: _descController.text,
+      contact: _contactController.text,
+      email: _emailController.text,
+      propertyType: _selectedType!,
+      images: [], // You can implement image picking later
+    );
+
+    LocalAds().addAd(newAd);
+
+    // Clear form
+    _titleController.clear();
+    _roomsController.clear();
+    _bathroomsController.clear();
+    _priceController.clear();
+    _descController.clear();
+    _contactController.clear();
+    _emailController.clear();
+    setState(() {
+      _selectedType = null;
+    });
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const ExplorePage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Next Page"), backgroundColor: Colors.green),
-      body: Center(
-        child: Text("Ad Submitted Successfully!", style: TextStyle(fontSize: 24)),
+      appBar: AppBar(title: const Text("Post New Property Ad")),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(children: [
+          TextField(
+            controller: _titleController,
+            decoration: const InputDecoration(labelText: 'Title'),
+          ),
+          TextField(
+            controller: _roomsController,
+            decoration: const InputDecoration(labelText: 'Rooms'),
+            keyboardType: TextInputType.number,
+          ),
+          TextField(
+            controller: _bathroomsController,
+            decoration: const InputDecoration(labelText: 'Bathrooms'),
+            keyboardType: TextInputType.number,
+          ),
+          TextField(
+            controller: _priceController,
+            decoration: const InputDecoration(labelText: 'Price'),
+            keyboardType: TextInputType.number,
+          ),
+          TextField(
+            controller: _descController,
+            decoration: const InputDecoration(labelText: 'Description'),
+            maxLines: 3,
+          ),
+          TextField(
+            controller: _contactController,
+            decoration: const InputDecoration(labelText: 'Contact'),
+            keyboardType: TextInputType.phone,
+          ),
+          TextField(
+            controller: _emailController,
+            decoration: const InputDecoration(labelText: 'Email'),
+            keyboardType: TextInputType.emailAddress,
+          ),
+          DropdownButtonFormField<String>(
+            value: _selectedType,
+            decoration: const InputDecoration(labelText: 'Property Type'),
+            items: _types
+                .map((type) => DropdownMenuItem(value: type, child: Text(type)))
+                .toList(),
+            onChanged: (value) {
+              setState(() {
+                _selectedType = value;
+              });
+            },
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: _submitAd,
+            child: const Text("Submit Ad"),
+          ),
+        ]),
       ),
     );
   }

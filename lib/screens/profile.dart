@@ -29,7 +29,7 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             CustomButton(text: 'Post Ad', onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => PostAdPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (_) => PostAdScreen()));
             }),
             CustomButton(text: 'View Properties', onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (_) => ExplorePage()));
