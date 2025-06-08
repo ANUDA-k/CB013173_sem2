@@ -1,5 +1,7 @@
 import 'dart:math';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:battery_plus/battery_plus.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
@@ -15,6 +17,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final Battery _battery = Battery();
   String _batteryStatus = '';
+  File? _capturedImage;
 
   Future<void> _getBatteryStatus() async {
     final level = await _battery.batteryLevel;
@@ -22,6 +25,17 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {
       _batteryStatus = 'Battery: $level%, State: ${state.name}';
     });
+  }
+
+  Future<void> _openCamera() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+    if (pickedFile != null) {
+      setState(() {
+        _capturedImage = File(pickedFile.path);
+      });
+    }
   }
 
   @override
@@ -42,7 +56,13 @@ class _ProfilePageState extends State<ProfilePage> {
             ProfileSection(
               name: name,
               imageUrl: randomImages[Random().nextInt(randomImages.length)],
+              onCameraTap: _openCamera,
             ),
+            if (_capturedImage != null)
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Image.file(_capturedImage!, height: 200),
+              ),
             SizedBox(height: 20),
             CustomButton(
               text: 'Post Ad',
@@ -106,8 +126,13 @@ class _ProfilePageState extends State<ProfilePage> {
 class ProfileSection extends StatelessWidget {
   final String name;
   final String imageUrl;
+  final VoidCallback onCameraTap;
 
-  ProfileSection({required this.name, required this.imageUrl});
+  ProfileSection({
+    required this.name,
+    required this.imageUrl,
+    required this.onCameraTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -117,9 +142,18 @@ class ProfileSection extends StatelessWidget {
       color: Color.fromARGB(255, 61, 77, 39),
       child: Column(
         children: [
-          CircleAvatar(
-            radius: 50,
-            backgroundImage: NetworkImage(imageUrl),
+          Stack(
+            alignment: Alignment.bottomRight,
+            children: [
+              CircleAvatar(
+                radius: 50,
+                backgroundImage: NetworkImage(imageUrl),
+              ),
+              IconButton(
+                icon: Icon(Icons.camera_alt, color: Colors.white),
+                onPressed: onCameraTap,
+              ),
+            ],
           ),
           SizedBox(height: 10),
           Text(
@@ -154,4 +188,3 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
-
